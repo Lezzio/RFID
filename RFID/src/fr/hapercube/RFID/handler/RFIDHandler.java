@@ -18,7 +18,7 @@ public class RFIDHandler {
 	}
 	public RFIDHandler(){
 		for(SerialPort port : SerialPort.getCommPorts()){
-				if(RFID.PORTS.contains(port.getSystemPortName()) && port.openPort()){
+				if(port.getDescriptivePortName().startsWith("Arduino") || RFID.PORTS.contains(port.getSystemPortName()) && port.openPort()){
 					serialPort = port; 
 					System.out.println("Port found & opened: " + port.getDescriptivePortName());
 					break;
@@ -43,8 +43,10 @@ public class RFIDHandler {
 			if(event.getEventType() == SerialPort.LISTENING_EVENT_DATA_RECEIVED){
 				SerialPort port = event.getSerialPort();
 				
-				final byte[] readBuffer = new byte[port.bytesAvailable()];
 				if(port.bytesAvailable() > 0){
+					
+					final byte[] readBuffer = new byte[port.bytesAvailable()];
+					
 					try {
 						port.getInputStream().read(readBuffer);
 						String data = new String(readBuffer);
