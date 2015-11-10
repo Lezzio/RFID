@@ -1,6 +1,7 @@
 package fr.gap.rfid.handler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
@@ -9,26 +10,26 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 import fr.gap.rfid.RFID;
 
 
-public class RFIDHandler {
+public final class RFIDHandler {
 
 	private SerialPort serialPort;
+	private ArrayList<RFIDAction> actions = new ArrayList<RFIDAction>();
+	private int baudRate;
 	
-	public RFIDHandler(SerialPort serialPort){
+	public RFIDHandler(SerialPort serialPort, ArrayList<RFIDAction> actions, int baudRate) {
 		this.serialPort = serialPort;
+		this.actions = actions;
+		this.baudRate = baudRate;
+		
+		serialPort.addDataListener(new SerialPortListener());
 	}
-	public RFIDHandler(){
-		for(SerialPort port : SerialPort.getCommPorts()){
-				if(port.getDescriptivePortName().startsWith("Arduino") || RFID.PORTS.contains(port.getSystemPortName()) && port.openPort()){
-					serialPort = port; 
-					System.out.println("Port found & opened: " + port.getDescriptivePortName());
-					break;
-				}
-				System.out.println("Checked -> Name: " + port.getDescriptivePortName() + " Baud: " + port.getBaudRate() + " Opened: " + port.isOpen());
-		}
-		if(serialPort != null){
-			serialPort.setBaudRate(RFID.BAUD_RATE);
-			serialPort.addDataListener(new SerialPortListener());
-		}
+	
+	/**
+	 * Returns the baud rate used in the serial communication
+	 * 
+	 */
+	public int getBaudRate() {
+		return baudRate;
 	}
 	
 	public class SerialPortListener implements SerialPortDataListener {
