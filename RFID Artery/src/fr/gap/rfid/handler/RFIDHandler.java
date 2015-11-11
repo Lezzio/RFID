@@ -7,10 +7,8 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
-import fr.gap.rfid.RFID;
 
-
-public final class RFIDHandler {
+public class RFIDHandler {
 
 	private SerialPort serialPort;
 	private ArrayList<RFIDAction> actions = new ArrayList<RFIDAction>();
@@ -31,7 +29,6 @@ public final class RFIDHandler {
 	public int getBaudRate() {
 		return baudRate;
 	}
-	
 	public class SerialPortListener implements SerialPortDataListener {
 
 		@Override
@@ -42,14 +39,14 @@ public final class RFIDHandler {
 		@Override
 		public void serialEvent(SerialPortEvent event) {
 			if(event.getEventType() == SerialPort.LISTENING_EVENT_DATA_RECEIVED){
-				SerialPort port = event.getSerialPort();
+				System.out.println("Listening...");
 				
-				if(port.bytesAvailable() > 0){
+				if(serialPort.bytesAvailable() > 0){
 					
-					final byte[] readBuffer = new byte[port.bytesAvailable()];
+					final byte[] readBuffer = new byte[serialPort.bytesAvailable()];
 					
 					try {
-						port.getInputStream().read(readBuffer);
+						serialPort.getInputStream().read(readBuffer);
 						String data = new String(readBuffer);
 						System.out.println(data);
 					} catch (IOException e) {
@@ -60,5 +57,9 @@ public final class RFIDHandler {
 			} else return;
 		}
 		
+	}
+	@Override
+	public void finalize() {
+		System.out.println("DEAD");
 	}
 }
