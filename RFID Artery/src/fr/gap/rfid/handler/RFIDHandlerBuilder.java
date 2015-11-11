@@ -35,8 +35,8 @@ public class RFIDHandlerBuilder {
 	public RFIDHandlerBuilder seekPort() {
 		
 		for (SerialPort serialPort : SerialPort.getCommPorts()) {
-			if (serialPort.getDescriptivePortName().startsWith("Arduino")
-					|| RFID.PORTS.contains(serialPort.getSystemPortName())
+			if ((serialPort.getDescriptivePortName().startsWith("Arduino")
+					|| RFID.PORTS.contains(serialPort.getSystemPortName()))
 					&& serialPort.openPort()) {
 				
 				this.serialPort = serialPort; //Assign port

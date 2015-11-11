@@ -39,7 +39,6 @@ public class RFIDHandler {
 		@Override
 		public void serialEvent(SerialPortEvent event) {
 			if(event.getEventType() == SerialPort.LISTENING_EVENT_DATA_RECEIVED){
-				System.out.println("Listening...");
 				
 				if(serialPort.bytesAvailable() > 0){
 					
