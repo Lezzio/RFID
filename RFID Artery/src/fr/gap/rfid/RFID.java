@@ -12,9 +12,7 @@ public class RFID {
 	public static final List<String> PORTS = Arrays.asList("COM3", "COM6");
 	public static final RFIDHandler handler = getHandler();
 	
-	public static void main(String ... args){
-		System.out.println("Starting...");
-	}
+	public static void main(String ... args) {}
 	
 	public static RFIDHandler getHandler() {
 		return new RFIDHandlerBuilder()
