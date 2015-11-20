@@ -22,8 +22,6 @@ public class RFIDHandlerBuilder {
 
 		if (port != null) {
 			this.serialPort = port;
-		} else {
-			seekPort();
 		}
 		
 		return this;
@@ -32,10 +30,10 @@ public class RFIDHandlerBuilder {
 	/**
 	 * Iterate all ports to seek one which is working
 	 */
-	public RFIDHandlerBuilder seekPort() {
+	public RFIDHandlerBuilder seekPort(String name) {
 		
 		for (SerialPort serialPort : SerialPort.getCommPorts()) {
-			if ((serialPort.getDescriptivePortName().startsWith("Arduino")
+			if ((serialPort.getDescriptivePortName().contains(name)
 					|| RFID.PORTS.contains(serialPort.getSystemPortName()))
 					&& serialPort.openPort()) {
 				
@@ -78,6 +76,7 @@ public class RFIDHandlerBuilder {
 	public RFIDHandler build() {
 		ArrayList<RFIDAction> actions = new ArrayList<RFIDAction>();
 		actions.addAll(this.actions);
+		if(serialPort == null) System.out.println("NullPointer due to SerialPort : " + serialPort);
 		serialPort.setBaudRate(baudRate);
 		
 		return new RFIDHandler(serialPort, actions, baudRate);

@@ -47,7 +47,6 @@ public class RFIDHandler {
 					try {
 						serialPort.getInputStream().read(readBuffer);
 						String data = new String(readBuffer);
-						System.out.println(data);
 						
 						//Perform actions
 						for(RFIDAction action : actions) {
