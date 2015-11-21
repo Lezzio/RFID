@@ -76,6 +76,7 @@ public class RFIDHandlerBuilder {
 	public RFIDHandler build() {
 		ArrayList<RFIDAction> actions = new ArrayList<RFIDAction>();
 		actions.addAll(this.actions);
+		if(serialPort == null) System.out.println("NullPointer due to SerialPort : " + serialPort);
 		serialPort.setBaudRate(baudRate);
 		
 		return new RFIDHandler(serialPort, actions, baudRate);
