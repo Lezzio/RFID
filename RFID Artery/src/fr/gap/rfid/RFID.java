@@ -3,6 +3,7 @@ package fr.gap.rfid;
 import java.util.Arrays;
 import java.util.List;
 
+import fr.gap.rfid.actions.ActionTreat;
 import fr.gap.rfid.handler.RFIDHandler;
 import fr.gap.rfid.handler.RFIDHandlerBuilder;
 
@@ -16,7 +17,7 @@ public class RFID {
 	
 	public static RFIDHandler getHandler() {
 		return new RFIDHandlerBuilder()
-		.seekPort()
+		.seekPort("Arduino")
 		.setBaudRate(BAUD_RATE)
 		.build();
 	}
