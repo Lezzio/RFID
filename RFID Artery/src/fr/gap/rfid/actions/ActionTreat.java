@@ -5,9 +5,9 @@ import fr.gap.rfid.handler.RFIDAction;
 public class ActionTreat implements RFIDAction {
 
 	private String stringSplitter = new String();
-	private CharSequence split;
+	private String split;
 	
-	public ActionTreat(CharSequence split) {
+	public ActionTreat(String split) {
 		this.split = split;
 	}
 
@@ -17,7 +17,7 @@ public class ActionTreat implements RFIDAction {
 		stringSplitter += data;
 		if(stringSplitter.contains(split)) {
 			
-			for(String code : stringSplitter.split("*")) {
+			for(String code : stringSplitter.split(split)) {
 				retrieveProduct(code);
 			}
 			

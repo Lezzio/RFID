@@ -19,7 +19,7 @@ public class RFID {
 		return new RFIDHandlerBuilder()
 		.seekPort("Arduino")
 		.setBaudRate(BAUD_RATE)
-		.addAction(new ActionTreat("*"))
+		.addAction(new ActionTreat("#"))
 		.build();
 	}
 
