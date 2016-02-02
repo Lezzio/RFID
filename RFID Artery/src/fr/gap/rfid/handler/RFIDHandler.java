@@ -8,7 +8,7 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
 
-public class RFIDHandler {
+public class RFIDHandler implements Runnable {
 
 	private SerialPort serialPort;
 	private ArrayList<RFIDAction> actions = new ArrayList<RFIDAction>();
@@ -18,8 +18,6 @@ public class RFIDHandler {
 		this.serialPort = serialPort;
 		this.actions = actions;
 		this.baudRate = baudRate;
-		
-		serialPort.addDataListener(new SerialPortListener());
 	}
 	
 	/**
@@ -65,5 +63,13 @@ public class RFIDHandler {
 	@Override
 	public void finalize() {
 		System.out.println("DEAD");
+	}
+
+	@Override
+	public void run() {
+		serialPort.addDataListener(new SerialPortListener());
+	}
+	public void stop() {
+		serialPort.removeDataListener();
 	}
 }
