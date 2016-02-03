@@ -1,8 +1,8 @@
-package fr.gap.rfid.actions;
+package fr.pag.rfid.actions;
 
 import java.util.ArrayList;
 
-import fr.gap.rfid.handler.RFIDAction;
+import fr.pag.rfid.handler.RFIDAction;
 
 public class ActionTreat implements RFIDAction {
 

@@ -1,11 +1,11 @@
-package fr.gap.rfid.handler;
+package fr.pag.rfid.handler;
 
 import java.util.ArrayList;
 
 import com.fazecast.jSerialComm.SerialPort;
 
-import fr.gap.rfid.RFID;
-import fr.gap.rfid.handler.RFIDHandler.SerialPortListener;
+import fr.pag.rfid.RFID;
+import fr.pag.rfid.handler.RFIDHandler.SerialPortListener;
 
 public class RFIDHandlerBuilder {
 

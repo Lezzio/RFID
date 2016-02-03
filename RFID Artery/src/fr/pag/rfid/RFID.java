@@ -1,11 +1,11 @@
-package fr.gap.rfid;
+package fr.pag.rfid;
 
 import java.util.Arrays;
 import java.util.List;
 
-import fr.gap.rfid.actions.ActionTreat;
-import fr.gap.rfid.handler.RFIDHandler;
-import fr.gap.rfid.handler.RFIDHandlerBuilder;
+import fr.pag.rfid.actions.ActionTreat;
+import fr.pag.rfid.handler.RFIDHandler;
+import fr.pag.rfid.handler.RFIDHandlerBuilder;
 
 public class RFID {
 	

@@ -1,4 +1,4 @@
-package fr.gap.rfid.handler;
+package fr.pag.rfid.handler;
 
 import java.io.IOException;
 import java.util.ArrayList;

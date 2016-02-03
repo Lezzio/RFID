@@ -1,4 +1,4 @@
-package fr.gap.rfid.socket;
+package fr.pag.rfid.socket;
 
 import java.io.IOException;
 import java.net.InetAddress;
