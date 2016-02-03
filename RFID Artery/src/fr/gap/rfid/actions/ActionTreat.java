@@ -1,5 +1,7 @@
 package fr.gap.rfid.actions;
 
+import java.util.ArrayList;
+
 import fr.gap.rfid.handler.RFIDAction;
 
 public class ActionTreat implements RFIDAction {
@@ -17,16 +19,21 @@ public class ActionTreat implements RFIDAction {
 		stringSplitter += data;
 		if(stringSplitter.contains(split)) {
 			
-			for(String code : stringSplitter.split(split)) {
-				retrieveProduct(code);
+			final String[] codes = stringSplitter.split(split);
+			for(int i = 0 ; i < codes.length - 1 ; i++) {
+				retrieveProduct(codes[i]);
 			}
 			
 		}
 
 	}
 
+	private final ArrayList<String> doneCode = new ArrayList<String>();
 	public void retrieveProduct(String product) {
-		System.out.println("Product caught: " + product);
+		if(!doneCode.contains(product)) {
+			doneCode.add(product);
+			System.out.println("Product caught: " + product);
+		}
 	}
 
 }
