@@ -12,6 +12,7 @@ public class RFIDHandlerBuilder {
 	private SerialPort serialPort;
 	private ArrayList<RFIDAction> actions = new ArrayList<RFIDAction>();
 	private int baudRate;
+	private String name;
 
 	/**
 	 * Set the SerialPort where the data to handle will come from
@@ -30,8 +31,9 @@ public class RFIDHandlerBuilder {
 	/**
 	 * Iterate all ports to seek one which is working
 	 */
-	public RFIDHandlerBuilder seekPort(String name) {
+	public RFIDHandlerBuilder seekPort(String name, boolean talk) {
 		
+		this.name = name;
 		for (SerialPort serialPort : SerialPort.getCommPorts()) {
 			if ((serialPort.getDescriptivePortName().contains(name)
 					|| RFID.PORTS.contains(serialPort.getSystemPortName()))
@@ -43,9 +45,9 @@ public class RFIDHandlerBuilder {
 						+ serialPort.getDescriptivePortName());
 				break;
 			}
-			System.out.println("Checked -> Name: "
-					+ serialPort.getDescriptivePortName() + " Baud: "
-					+ serialPort.getBaudRate() + " Opened: " + serialPort.isOpen());
+			if(talk) System.out.println("Checked -> Name: "
+						+ serialPort.getDescriptivePortName() + " Baud: "
+						+ serialPort.getBaudRate() + " Opened: " + serialPort.isOpen());
 		}
 		
 		return this;
@@ -76,10 +78,21 @@ public class RFIDHandlerBuilder {
 	public RFIDHandler build() {
 		ArrayList<RFIDAction> actions = new ArrayList<RFIDAction>();
 		actions.addAll(this.actions);
-		if(serialPort == null) System.out.println("NullPointer due to SerialPort : " + serialPort);
+		
+		if(serialPort == null) {
+			System.out.println("NullPointer due to SerialPort : " + serialPort);
+			waitGear(); //Blocking
+		} 
 		serialPort.setBaudRate(baudRate);
 		
 		return new RFIDHandler(serialPort, actions, baudRate);
+	}
+	
+	private void waitGear() {
+		System.out.println("Waiting for gear ...");
+		while(serialPort == null) {
+			seekPort(name, false);
+		}
 	}
 
 }

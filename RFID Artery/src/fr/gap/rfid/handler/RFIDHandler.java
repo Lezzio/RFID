@@ -22,11 +22,20 @@ public class RFIDHandler implements Runnable {
 	
 	/**
 	 * Returns the baud rate used in the serial communication
-	 * 
 	 */
 	public int getBaudRate() {
 		return baudRate;
 	}
+	
+	@Override
+	public void run() {
+		serialPort.addDataListener(new SerialPortListener());
+	}
+	
+	public void stop() {
+		serialPort.removeDataListener();
+	}
+	
 	public class SerialPortListener implements SerialPortDataListener {
 
 		@Override
@@ -63,13 +72,5 @@ public class RFIDHandler implements Runnable {
 	@Override
 	public void finalize() {
 		System.out.println("DEAD");
-	}
-
-	@Override
-	public void run() {
-		serialPort.addDataListener(new SerialPortListener());
-	}
-	public void stop() {
-		serialPort.removeDataListener();
 	}
 }

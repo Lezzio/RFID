@@ -19,7 +19,7 @@ public class RFID {
 	
 	public static RFIDHandler getHandler() {
 		return new RFIDHandlerBuilder()
-		.seekPort("Arduino")
+		.seekPort("Arduino", true)
 		.setBaudRate(BAUD_RATE)
 		.addAction(new ActionTreat("#"))
 		.build();
