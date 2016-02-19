@@ -1,21 +1,32 @@
-package fr.pag.rfid.actions;
+package fr.pag.rfid.handler.actions;
 
 import java.util.ArrayList;
 
-import fr.pag.rfid.handler.RFIDAction;
+import fr.pag.rfid.board.Board;
+import fr.pag.rfid.board.BoardRole;
+import fr.pag.rfid.handler.BoardAction;
 
-public class ActionTreat implements RFIDAction {
+public class ActionReader implements BoardAction {
 
 	private String stringSplitter = new String();
 	private String split;
 	
-	public ActionTreat(String split) {
+	public ActionReader(String split) {
 		this.split = split;
+	}
+	
+	@Override
+	public BoardRole getNeededRole() {
+		return BoardRole.READER;
+	}
+	
+	@Override
+	public boolean isAsync() {
+		return true;
 	}
 
 	@Override
-	public void handle(String data) {
-
+	public void handle(Board holder, String data) {
 		stringSplitter += data;
 		if(stringSplitter.contains(split)) {
 			
