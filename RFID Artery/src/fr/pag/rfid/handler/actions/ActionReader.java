@@ -47,4 +47,9 @@ public class ActionReader implements BoardAction {
 		}
 	}
 
+	@Override
+	public boolean execute(Board holder, int indication) {
+		return false;
+	}
+
 }

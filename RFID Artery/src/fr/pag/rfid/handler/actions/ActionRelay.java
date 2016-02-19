@@ -20,6 +20,11 @@ public class ActionRelay implements BoardAction {
 	public boolean isAsync() {
 		return true;
 	}
+
+	@Override
+	public boolean execute(Board holder, int indication) {
+		return false;
+	}
 	
 	
 
