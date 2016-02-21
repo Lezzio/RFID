@@ -58,4 +58,9 @@ public class Board extends PortConnection {
 		}
 	}
 	
+	public void execute(int indication) {
+		handler.execute(indication);
+	}
+	
+	
 }
