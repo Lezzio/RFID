@@ -13,7 +13,7 @@ import fr.pag.rfid.handler.BoardAction;
  */
 public class ActionRole implements BoardAction {
 	
-	public final Integer ASK_ROLE = 3;
+	public static final Integer ASK_ROLE = 3;
 	
 	@Override
 	public BoardRole getNeededRole() {
@@ -29,7 +29,6 @@ public class ActionRole implements BoardAction {
 	public void handle(Board holder, String data) {
 		//Send each time until a role has been found
 		this.execute(holder, 0);
-		
 		holder.setRole(BoardRole.getById(Integer.valueOf(data)));
 	}
 
