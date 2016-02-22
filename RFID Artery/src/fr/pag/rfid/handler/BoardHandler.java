@@ -51,10 +51,11 @@ public class BoardHandler implements Runnable {
 						// Perform actions
 						for (BoardAction action : actions) {
 
-							//Check role
+							// Check role
 							if (action.getNeededRole() == holder.getRole()) {
 
-								// Call in another thread if possible to optimize:
+								// Call in another thread if possible to
+								// optimize:
 								if (action.isAsync()) {
 									ThreadPool.executeTask(() -> action.handle(holder, data));
 								} else {
@@ -76,22 +77,34 @@ public class BoardHandler implements Runnable {
 		}
 
 	}
-	
+
 	public void execute(int indication) {
-		
-		//Perform actions
-		for(BoardAction action : actions) {
-			if(action.getNeededRole() == holder.getRole()) {
-				//Call in another thread if possible to optimize:
-				if(action.isAsync()) {
-					ThreadPool.executeTask(() -> action.execute(holder, indication));
-				} else {
-					//Else call in current thread
-					action.execute(holder, indication);
+		execute(null, indication);
+	}
+
+	public void execute(Class<?> container, int indication) {
+
+		// Perform actions
+		for (BoardAction action : actions) {
+
+			// Type match ?
+			if (container.getTypeName() == action.getClass().getTypeName()) {
+
+				// Check role
+				if (action.getNeededRole() == holder.getRole()) {
+					
+					// Call in another thread if possible to optimize:
+					if (action.isAsync()) {
+						ThreadPool.executeTask(() -> action.execute(holder, indication));
+					} else {
+						// Else call in current thread
+						action.execute(holder, indication);
+					}
 				}
 			}
+
 		}
-		
+
 	}
 
 	@Override
