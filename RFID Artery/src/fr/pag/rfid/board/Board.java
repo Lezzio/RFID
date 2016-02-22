@@ -3,6 +3,7 @@ package fr.pag.rfid.board;
 import com.fazecast.jSerialComm.SerialPort;
 
 import fr.pag.rfid.handler.BoardHandler;
+import fr.pag.rfid.handler.actions.ActionRole;
 
 public class Board extends PortConnection {
 	
@@ -23,6 +24,14 @@ public class Board extends PortConnection {
 	 * Empty constructor
 	 */
 	public Board() {}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public void setHandler(BoardHandler handler) {
 		this.handler = handler;
@@ -58,8 +67,8 @@ public class Board extends PortConnection {
 		}
 	}
 	
-	public void execute(int indication) {
-		handler.execute(indication);
+	public void execute(Class<?> container, int indication) {
+		handler.execute(container, indication);
 	}
 	
 	
