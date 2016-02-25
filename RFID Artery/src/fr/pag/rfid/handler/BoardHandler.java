@@ -23,6 +23,13 @@ public class BoardHandler implements Runnable {
 	@Override
 	public void run() {
 		holder.getSerialPort().addDataListener(new SerialPortListener());
+		
+		//Reset stream
+		try {
+			holder.getSerialPort().getInputStream().skip(holder.getSerialPort().bytesAvailable());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void stop() {
