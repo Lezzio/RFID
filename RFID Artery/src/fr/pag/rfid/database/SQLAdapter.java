@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import fr.pag.rfid.RFID;
+import fr.pag.rfid.cypher.Decrypter;
 
 public class SQLAdapter implements IDatabase {
 	
@@ -23,7 +24,11 @@ public class SQLAdapter implements IDatabase {
 			
 			ResultSet rs = state.executeQuery("SELECT crypt_pass FROM users WHERE pseudo = " + "'" + user + "'");
 			rs.next();
-			if(password.equals(rs.getString(1))) {
+
+			Decrypter decrypter = new Decrypter();
+			
+			if(decrypter.DecryptagePass(decrypter.MoneyLecture(password)).equals
+			(decrypter.DecryptagePass(decrypter.MoneyLecture(rs.getString(1))))) {
 				return true;
 			}
 			
