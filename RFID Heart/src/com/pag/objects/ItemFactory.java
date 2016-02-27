@@ -1,4 +1,4 @@
-package fr.pag.rfid.items;
+package com.pag.objects;
 
 public class ItemFactory {
 
