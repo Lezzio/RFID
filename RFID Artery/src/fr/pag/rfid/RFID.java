@@ -1,10 +1,12 @@
 package fr.pag.rfid;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import fr.pag.rfid.bluetooth.BluetoothManager;
 import fr.pag.rfid.board.Board;
 import fr.pag.rfid.board.BoardBuilder;
 import fr.pag.rfid.board.BoardRole;
@@ -31,12 +33,19 @@ public class RFID {
 		//Uncomment for local debugging
 		printWriter = new PrintWriter(System.out, true);
 		
+		try {
+			BluetoothManager.initServer();
+		} catch (IOException e) {
+			Debugger.log("Bluetooth service is not available");
+		}
+		Debugger.log("Bluetooth = " + BluetoothManager.getState());
+		
 		for(Board board : searchBoards(1)) {
 			
 			 //Let the board listening
 			board.setListening(true);
 			board.execute(ActionRole.class, ActionRole.ASK_ROLE);
-			board.setRole(BoardRole.READER); //To remove soon
+			
 		}
 		
 	}
@@ -49,6 +58,7 @@ public class RFID {
 
 			//Run board
 			Board board = new BoardBuilder()
+					.setName("Arduino " + i)
 					.seekPort("Arduino", true)
 					.setBaudRate(BAUD_RATE)
 					.addAction(new ActionRole())

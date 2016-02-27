@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.fazecast.jSerialComm.SerialPort;
-import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import com.fazecast.jSerialComm.SerialPortPacketListener;
 
 import fr.pag.rfid.async.ThreadPool;
 import fr.pag.rfid.board.Board;
@@ -23,8 +23,14 @@ public class BoardHandler implements Runnable {
 	@Override
 	public void run() {
 		holder.getSerialPort().addDataListener(new SerialPortListener());
-		
-		//Reset stream
+		//reset(); //Reset last data
+	}
+
+	public void stop() {
+		holder.getSerialPort().removeDataListener();
+	}
+
+	public void reset() {
 		try {
 			holder.getSerialPort().getInputStream().skip(holder.getSerialPort().bytesAvailable());
 		} catch (IOException e) {
@@ -32,11 +38,7 @@ public class BoardHandler implements Runnable {
 		}
 	}
 
-	public void stop() {
-		holder.getSerialPort().removeDataListener();
-	}
-
-	public class SerialPortListener implements SerialPortDataListener {
+	public class SerialPortListener implements SerialPortPacketListener {
 
 		@Override
 		public int getListeningEvents() {
@@ -83,6 +85,11 @@ public class BoardHandler implements Runnable {
 				return;
 		}
 
+		@Override
+		public int getPacketSize() {
+			return 0;
+		}
+
 	}
 
 	public void execute(int indication) {
@@ -99,7 +106,7 @@ public class BoardHandler implements Runnable {
 
 				// Check role
 				if (action.getNeededRole() == holder.getRole()) {
-					
+
 					// Call in another thread if possible to optimize:
 					if (action.isAsync()) {
 						ThreadPool.executeTask(() -> action.execute(holder, indication));

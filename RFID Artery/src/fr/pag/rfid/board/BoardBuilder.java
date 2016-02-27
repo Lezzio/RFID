@@ -94,6 +94,7 @@ public class BoardBuilder {
 		Board board = new Board(serialPort, baudRate);
 		board.setHandler(new BoardHandler(board, actions));
 		board.setRole(BoardRole.UNKNOWN);
+		board.setName(name);
 		
 		return board;
 	}

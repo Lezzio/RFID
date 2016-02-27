@@ -66,7 +66,6 @@ public class BluetoothManager {
 	     PrintStream printStream = new PrintStream(outCustomer);
 		 printStream.println(jsonMsg);
 		 printStream.flush();
-		 printStream.close();
 		 
 		return true;
 	}

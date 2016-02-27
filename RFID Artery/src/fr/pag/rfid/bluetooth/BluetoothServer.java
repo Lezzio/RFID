@@ -35,6 +35,7 @@ public class BluetoothServer {
 		// Wait for client connection
 		Debugger.log("Bluetooth server ready! Waiting for clients ...");
 		while (true) {
+			
 			connection = streamConnNotifier.acceptAndOpen(); // Blocking
 			
 			// When a connection is opened process it asynchronously

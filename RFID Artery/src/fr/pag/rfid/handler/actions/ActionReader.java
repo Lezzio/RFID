@@ -1,10 +1,15 @@
 package fr.pag.rfid.handler.actions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import fr.pag.rfid.Debugger;
+import fr.pag.rfid.bluetooth.BluetoothManager;
 import fr.pag.rfid.board.Board;
 import fr.pag.rfid.board.BoardRole;
 import fr.pag.rfid.handler.BoardAction;
+import fr.pag.rfid.objects.Basket;
+import fr.pag.rfid.objects.Item;
 
 public class ActionReader implements BoardAction {
 
@@ -43,7 +48,17 @@ public class ActionReader implements BoardAction {
 	public void retrieveProduct(String product) {
 		if(!doneCode.contains(product)) {
 			doneCode.add(product);
+			product = product.replace("0x", "").replace(" ", "");
 			System.out.println("Product caught: " + product);
+			Item retrieved = new Item("Chocapic", product, 2.49);
+			ArrayList<Item> items = new ArrayList<Item>();
+			items.add(retrieved);
+			Basket basket = new Basket(items);
+			Debugger.log(basket.toString());
+			
+			if(BluetoothManager.isFree()) {
+				BluetoothManager.writeToCustomer(basket.toString());
+			}
 		}
 	}
 
