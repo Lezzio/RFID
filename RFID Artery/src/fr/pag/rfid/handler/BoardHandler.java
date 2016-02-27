@@ -7,6 +7,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import com.fazecast.jSerialComm.SerialPortPacketListener;
 
+import fr.pag.rfid.Debugger;
 import fr.pag.rfid.async.ThreadPool;
 import fr.pag.rfid.board.Board;
 
@@ -23,7 +24,7 @@ public class BoardHandler implements Runnable {
 	@Override
 	public void run() {
 		holder.getSerialPort().addDataListener(new SerialPortListener());
-		//reset(); //Reset last data
+		reset(); //Reset last data
 	}
 
 	public void stop() {
@@ -56,7 +57,7 @@ public class BoardHandler implements Runnable {
 					try {
 						holder.getSerialPort().getInputStream().read(readBuffer);
 						String data = new String(readBuffer);
-
+						
 						// Perform actions
 						for (BoardAction action : actions) {
 
