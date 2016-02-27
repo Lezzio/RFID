@@ -9,7 +9,6 @@ import java.util.List;
 import fr.pag.rfid.bluetooth.BluetoothManager;
 import fr.pag.rfid.board.Board;
 import fr.pag.rfid.board.BoardBuilder;
-import fr.pag.rfid.board.BoardRole;
 import fr.pag.rfid.database.IDatabase;
 import fr.pag.rfid.database.MongoAdapter;
 import fr.pag.rfid.database.SQLAdapter;
