@@ -1,4 +1,4 @@
-package fr.pag.rfid.objects;
+package com.pag.objects;
 
 import java.io.Serializable;
 
