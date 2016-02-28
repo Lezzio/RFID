@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Decrypter {
 	
-	public ArrayList<String> MoneyLecture(String Money){
+	public static ArrayList<String> moneyRead(String Money){
 		ArrayList<String> DecrypteList = new ArrayList<String>();
 			ArrayList<String> TheAlphabet = new ArrayList<String>();
 			ArrayList<String> TheAlphabetPair = new ArrayList<String>();
@@ -74,7 +74,7 @@ public class Decrypter {
 		return DecrypteList;	
 	}
 	
-	public String DecryptagePass(ArrayList<String> PartiellementDecrypte){
+	public static String decryptagePass(ArrayList<String> PartiellementDecrypte){
 		String Decrypte = "";
 		ArrayList<String> TheAlphabetAndNumerique = new ArrayList<String>();
 		String[] AlphabetAndNumerique = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9",
@@ -118,6 +118,10 @@ public class Decrypter {
 			}
 		}
 		return Decrypte;
+	}
+	
+	public static String decrypt(String str) {
+		return decryptagePass(moneyRead(str));
 	}
 	
 }

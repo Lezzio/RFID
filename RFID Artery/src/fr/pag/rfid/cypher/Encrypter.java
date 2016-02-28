@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * @see PAG Pay
+ */
 public class Encrypter {
 	
-	public String CryptagePassionButJustForPass(String Password){
+	public static String cryptagePassionButJustForPass(String Password){
 		String Alors = null;
 		ArrayList<String> TheAlphabetAndNumerique = new ArrayList<String>();
 		String[] AlphabetAndNumerique = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9",
@@ -57,7 +60,7 @@ public class Encrypter {
 		return Alors;
 	}
 	
-	public String MoneyEnregistrement(String Money){
+	public static String moneyRegister(String Money){
 		String Alors = "Echec";
 		String Argent = Money;
 		final ArrayList<String> MoneyCaracteres = new ArrayList<String>();
@@ -169,6 +172,10 @@ public class Encrypter {
 		}
 		System.out.println(String.valueOf(Alors));
 		return Alors;
+	}
+	
+	public static String encrypt(String str) {
+		return moneyRegister(cryptagePassionButJustForPass(str));
 	}
 
 }

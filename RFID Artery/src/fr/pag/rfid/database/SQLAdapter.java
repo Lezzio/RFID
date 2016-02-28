@@ -25,10 +25,8 @@ public class SQLAdapter implements IDatabase {
 			ResultSet rs = state.executeQuery("SELECT crypt_pass FROM users WHERE pseudo = " + "'" + user + "'");
 			rs.next();
 
-			Decrypter decrypter = new Decrypter();
-			
-			if(decrypter.DecryptagePass(decrypter.MoneyLecture(password)).equals
-			(decrypter.DecryptagePass(decrypter.MoneyLecture(rs.getString(1))))) {
+			if(Decrypter.decrypt(password).equals
+					(Decrypter.decrypt(rs.getString(1)))) {
 				return true;
 			}
 			
