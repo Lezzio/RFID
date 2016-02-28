@@ -14,8 +14,6 @@ import fr.pag.rfid.handler.BoardAction;
  */
 public class ActionRole implements BoardAction {
 
-	public static final Integer ASK_ROLE = 3;
-
 	@Override
 	public BoardRole getNeededRole() {
 		return BoardRole.UNKNOWN;

@@ -43,7 +43,7 @@ public class RFID {
 			
 			 //Let the board listening
 			board.setListening(true);
-			board.execute(ActionRole.class, ActionRole.ASK_ROLE);
+			board.execute(ActionRole.class, Protocol.ASK_ROLE);
 			
 		}
 		
