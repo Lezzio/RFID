@@ -2,6 +2,7 @@ package fr.pag.rfid;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ import fr.pag.rfid.database.MongoAdapter;
 import fr.pag.rfid.database.SQLAdapter;
 import fr.pag.rfid.handler.actions.ActionReader;
 import fr.pag.rfid.handler.actions.ActionRole;
+import fr.pag.rfid.socket.SocketManager;
 
 public class RFID {
 	
@@ -31,14 +33,24 @@ public class RFID {
 		
 		//Uncomment for local debugging
 		printWriter = new PrintWriter(System.out, true);
-		
-		try {
-			BluetoothManager.initServer();
-		} catch (IOException e) {
-			Debugger.log("Bluetooth service is not available");
+
+		//Socket
+		Debugger.log("Looking for receivers...");
+		SocketManager.findReceivers(SocketManager.getLocalAddress().getHostAddress(), Protocol.PORT_HEART, 40);
+		if(SocketManager.getReceivers().isEmpty()) {
+			Debugger.log("WARNING: Socket not found!");
 		}
-		Debugger.log("Bluetooth = " + BluetoothManager.getState());
 		
+		//Bluetooth
+		try {
+			Debugger.log("Starting bluetooth service...");
+			BluetoothManager.initServer();
+			Debugger.log("Bluetooth = " + BluetoothManager.getState());
+		} catch (IOException e) {
+			Debugger.log("WARNING: Bluetooth service is not available!");
+		}
+		
+		//Board
 		for(Board board : searchBoards(1)) {
 			
 			 //Let the board listening
