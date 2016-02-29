@@ -170,7 +170,6 @@ public class Encrypter {
 				}
 			}
 		}
-		System.out.println(String.valueOf(Alors));
 		return Alors;
 	}
 	
