@@ -1,4 +1,4 @@
-package fr.pag.rfid.cypher;
+package fr.pag.rfid.core.cypher;
 
 import java.util.ArrayList;
 import java.util.Collections;
