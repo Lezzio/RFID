@@ -15,5 +15,16 @@ public class BoardManager {
 	public static void removeBoard(Board board) {
 		boards.remove(board);
 	}
+	
+	/**
+	 * Broadcast execution to all connected boards regarding specified parameters
+	 * @param container Class Holder
+	 * @param indication Useful for following protocol
+	 */
+	public void broadcast(Class<?> container, int indication) {
+		for(Board board : boards) {
+			board.execute(container, indication);
+		}
+	}
 
 }
