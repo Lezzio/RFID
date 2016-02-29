@@ -4,14 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 
 import javax.bluetooth.RemoteDevice;
 import javax.microedition.io.StreamConnection;
-
-import com.intel.bluetooth.RemoteDeviceHelper;
 
 import fr.pag.rfid.Debugger;
 import fr.pag.rfid.RFID;
@@ -26,12 +23,12 @@ public class ProcessBluetooth extends Thread {
 	}
 
 	@Override
-	public synchronized void start() {
+	public void start() {
 		super.start();
 	}
 
 	@Override
-	public synchronized void run() {
+	public void run() {
 		try {
 			RemoteDevice device = RemoteDevice.getRemoteDevice(connection);
 			Debugger.log("Device in range :" + device.getBluetoothAddress());
