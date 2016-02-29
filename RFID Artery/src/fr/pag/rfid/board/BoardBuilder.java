@@ -96,6 +96,7 @@ public class BoardBuilder {
 		board.setRole(BoardRole.UNKNOWN);
 		board.setName(name);
 		
+		BoardManager.addBoard(board);
 		return board;
 	}
 	
