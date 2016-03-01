@@ -30,7 +30,7 @@ public class Basket {
 		}
 		return builder.toString();
 	}
-	public Basket fromString(String itemsString) {
+	public static Basket fromString(String itemsString) {
 		ArrayList<Item> items = new ArrayList<Item>();
 		for(String item : itemsString.split("@")) {
 			items.add(Item.fromString(item));

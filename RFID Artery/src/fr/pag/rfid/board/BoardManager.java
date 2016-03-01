@@ -21,7 +21,7 @@ public class BoardManager {
 	 * @param container Class Holder
 	 * @param indication Useful for following protocol
 	 */
-	public void broadcast(Class<?> container, int indication) {
+	public static void broadcast(Class<?> container, int indication) {
 		for(Board board : boards) {
 			board.execute(container, indication);
 		}
