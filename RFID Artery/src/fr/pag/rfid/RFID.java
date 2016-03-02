@@ -14,7 +14,9 @@ import fr.pag.rfid.database.IDatabase;
 import fr.pag.rfid.database.MongoAdapter;
 import fr.pag.rfid.database.SQLAdapter;
 import fr.pag.rfid.handler.actions.ActionReader;
+import fr.pag.rfid.handler.actions.ActionRelay;
 import fr.pag.rfid.handler.actions.ActionRole;
+import fr.pag.rfid.interact.Platform;
 import fr.pag.rfid.socket.SocketManager;
 
 public class RFID {
@@ -23,6 +25,7 @@ public class RFID {
 	public static final List<String> PORTS = Arrays.asList("COM3", "COM6");
 	
 	public static PrintWriter printWriter;
+	public static Platform platform = new Platform();
 	
 	//Hexagonal stuff
 	public static IDatabase sqlDatabase = new SQLAdapter();
@@ -36,7 +39,7 @@ public class RFID {
 
 		//Socket
 		Debugger.log("Looking for receivers...");
-		SocketManager.findReceivers(SocketManager.getLocalAddress().getHostAddress(), Protocol.PORT_HEART, 40);
+		//SocketManager.findReceivers(SocketManager.getLocalAddress().getHostAddress(), Protocol.PORT_HEART, 40);
 		if(SocketManager.getReceivers().isEmpty()) {
 			Debugger.log("WARNING: Socket not found!");
 		}
@@ -58,7 +61,6 @@ public class RFID {
 			board.execute(ActionRole.class, Protocol.ASK_ROLE);
 			
 		}
-		
 	}
 	
 	public static List<Board> searchBoards(int amount) {
@@ -74,6 +76,7 @@ public class RFID {
 					.setBaudRate(BAUD_RATE)
 					.addAction(new ActionRole())
 					.addAction(new ActionReader("#"))
+					.addAction(new ActionRelay())
 					.build();
 			
 			boards.add(board);
