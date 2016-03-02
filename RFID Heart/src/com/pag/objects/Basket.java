@@ -15,7 +15,7 @@ public class Basket implements Serializable {
 	private String market;
 	private String user;
 	private Date date;
-	private double totalPrice;
+	private int totalPrice;
 	
 	public Basket() {}
 	
@@ -23,7 +23,7 @@ public class Basket implements Serializable {
 		this.items = items;
 	}
 	
-	public Basket(ArrayList<Item> items, String market, String user, Date date, double totalPrice) {
+	public Basket(ArrayList<Item> items, String market, String user, Date date, int totalPrice) {
 		this.items = items;
 		this.market = market;
 		this.user = user;
@@ -39,7 +39,7 @@ public class Basket implements Serializable {
 		return user;
 	}
 	
-	public double getTotalPrice() {
+	public int getTotalPrice() {
 		return totalPrice;
 	}
 	
