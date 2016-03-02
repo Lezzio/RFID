@@ -4,23 +4,30 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.LocalDevice;
 import javax.microedition.io.StreamConnection;
 
+import com.pag.objects.Basket;
+import com.pag.objects.Item;
+
 import fr.pag.rfid.Debugger;
 import fr.pag.rfid.RFID;
 import fr.pag.rfid.async.ThreadPool;
+import fr.pag.rfid.interact.Customer;
+import fr.pag.rfid.interact.Platform;
 
 public class BluetoothManager {
 
 	private static BluetoothServer server;
 	private static boolean state = false;
-
-	private static StreamConnection customer;
-	private static OutputStream outCustomer;
+	
+	private static Customer customer;
 
 	public static void initServer() throws IOException, BluetoothStateException {
 
@@ -48,50 +55,25 @@ public class BluetoothManager {
 
 	}
 
-	public static synchronized void setCustomer(StreamConnection connection) {
-		try {
-		customer = connection;
-		outCustomer = connection.openOutputStream();
-		} catch(IOException e) {
-			e.printStackTrace(RFID.printWriter);
+	public static void setCustomer(Customer customer) {
+		Debugger.log("Client set to " + customer);
+		BluetoothManager.customer = customer;
+		
+		//Test object
+		if(customer != null) {
+		ArrayList<Item> items = new ArrayList<Item>();
+		items.add(new Item("Coca", "GA48H", 2.49));
+		items.add(new Item("Chips", "BA4A9", 3.49));
+		BluetoothManager.getCustomer().writeObject(new Basket(items, "Annonay pag", "User", new Date(), 4.49));
 		}
+		
 	}
-
-	public static StreamConnection getCustomer() {
+	
+	public static Customer getCustomer() {
 		return customer;
 	}
 
-	public static synchronized boolean writeToCustomer(String jsonMsg) {
-		
-	     PrintStream printStream = new PrintStream(outCustomer);
-		 printStream.println(jsonMsg);
-		 printStream.flush();
-		 
-		return true;
-	}
-	
-	public static synchronized boolean writeToCustomer(Object object) {
-		try {
-			Debugger.log("Customer: " + customer);
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(outCustomer);
-			objectOutputStream.writeObject(object);
-			objectOutputStream.flush();
-		} catch(IOException e) {
-			e.printStackTrace(RFID.printWriter);
-			return false;
-		}
-		return true;
-	}
-
-	public static void closeCustomer() {
-		try {
-			customer.close();
-		} catch (IOException e) {
-			e.printStackTrace(RFID.printWriter);
-		}
-	}
-	
-	public static boolean isFree() {
+	public static boolean hasCustomer() {
 		return customer != null;
 	}
 
