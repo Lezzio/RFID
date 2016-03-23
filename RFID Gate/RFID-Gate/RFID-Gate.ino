@@ -14,6 +14,7 @@ byte GATE_OPEN = 0;
 byte GATE_CLOSE = 1;
 byte GATE_ROTATE_ON = 4;
 byte GATE_ROTATE_OFF = 5;
+byte GATE_STOP = 9;
 
 void setup() {
   //Setup hardware
@@ -44,6 +45,9 @@ void loop() {
     if(input == GATE_CLOSE) {
       close();
     }
+    if(input == GATE_STOP) {
+      stop();
+    }
    }
 }
 
@@ -61,5 +65,12 @@ void close() {
   
   digitalWrite(RELAIS_SECOND, HIGH);
   digitalWrite(RELAIS_FOURTH, HIGH);
+}
+
+void stop() {
+  digitalWrite(RELAIS_FIRST, LOW);
+  digitalWrite(RELAIS_THIRD, LOW);
+  digitalWrite(RELAIS_SECOND, LOW);
+  digitalWrite(RELAIS_FOURTH, LOW);
 }
 
