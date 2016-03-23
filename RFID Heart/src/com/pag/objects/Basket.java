@@ -15,7 +15,7 @@ public class Basket implements Serializable {
 	private String market;
 	private String user;
 	private Date date;
-	private int totalPrice;
+	private double totalPrice;
 	
 	public Basket() {}
 	
@@ -23,11 +23,18 @@ public class Basket implements Serializable {
 		this.items = items;
 	}
 	
-	public Basket(ArrayList<Item> items, String market, String user, Date date, int totalPrice) {
+	public Basket(ArrayList<Item> items, String market, String user, Date date, double totalPrice) {
 		this.items = items;
 		this.market = market;
 		this.user = user;
 		this.date = date;
+		this.totalPrice = totalPrice;
+	}
+	
+	public Basket(ArrayList<Item> items, String market, String user, double totalPrice) {
+		this.items = items;
+		this.market = market;
+		this.user = user;
 		this.totalPrice = totalPrice;
 	}
 	
@@ -38,13 +45,19 @@ public class Basket implements Serializable {
 	public String getUser() {
 		return user;
 	}
+	public void setUser(String user) {
+		this.user = user;
+	}
 	
-	public int getTotalPrice() {
+	public double getTotalPrice() {
 		return totalPrice;
 	}
 	
 	public Date getDate() {
 		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	public ArrayList<Item> getItems() {
@@ -60,17 +73,21 @@ public class Basket implements Serializable {
 	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
+		builder.append(market + "#");
+		builder.append(user + "#");
+		builder.append(totalPrice + "#");
 		for(Item item : items) {
-			builder.append(item.toString() + "@");
+			builder.append(item.serialize() + "@");
 		}
 		return builder.toString();
 	}
-	public static Basket fromString(String itemsString) {
+	public static Basket fromString(String basketString) {
+		String[] fields = basketString.split("#");
 		ArrayList<Item> items = new ArrayList<Item>();
-		for(String item : itemsString.split("@")) {
+		for(String item : fields[3].split("@")) {
 			items.add(Item.fromString(item));
 		}
-		return new Basket(items);
+		return new Basket(items, fields[0], fields[1], Double.parseDouble(fields[2]));
 	}
 	
 }

@@ -58,11 +58,19 @@ public class Item implements Serializable {
 	
 	@Override
 	public String toString() {
-		return new String(name + "#" + code + "#" + price);
+		return new String(name);
+	}
+	
+	/**
+	 * Return a serialized Item with String form
+	 * @return
+	 */
+	public String serialize() {
+		return new String(name + "%" + code + "%" + price);
 	}
 	
 	public static Item fromString(String item) {
-		String[] array = item.split("#");
+		String[] array = item.split("%");
 		return new Item(array[0], array[1], Double.parseDouble(array[2]));
 	}
 
