@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.pag.rfid.controller.ProductEditController">
+   <children>
+      <SubScene height="575.0" layoutX="6.0" width="744.0">
+        <root>
+          <Region />
+        </root>
+      </SubScene>
+      <ListView fx:id="itemList" layoutX="19.0" layoutY="87.0" prefHeight="480.0" prefWidth="289.0" />
+      <Label fx:id="actionName" layoutX="409.0" layoutY="96.0" text="Select an item">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="55.0" fitWidth="60.0" layoutX="329.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/pag-item.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></ImageView>
+      <Label layoutX="389.0" layoutY="154.0" text="Nom:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nameField" layoutX="434.0" layoutY="149.0" prefHeight="25.0" prefWidth="142.0" />
+      <Label layoutX="389.0" layoutY="193.0" text="Prix:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="priceField" layoutX="434.0" layoutY="188.0" prefHeight="25.0" prefWidth="142.0" />
+      <Label layoutX="389.0" layoutY="230.0" text="Code:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="codeField" layoutX="434.0" layoutY="225.0" prefHeight="25.0" prefWidth="142.0" />
+      <ImageView accessibleRole="BUTTON" fitHeight="39.0" fitWidth="39.0" layoutX="657.0" layoutY="76.0" onMouseClicked="#addItemClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/window-new.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView accessibleRole="BUTTON" fitHeight="47.0" fitWidth="47.0" layoutX="220.0" layoutY="14.0" onMouseClicked="#settingsClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/Icon.PlainSeries.Cogwheel.Pressed.48x48.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView accessibleRole="BUTTON" fitHeight="39.0" fitWidth="39.0" layoutX="440.0" layoutY="327.0" onMouseClicked="#updateClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/update-item.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView accessibleRole="BUTTON" fitHeight="39.0" fitWidth="39.0" layoutX="390.0" layoutY="327.0" onMouseClicked="#statsClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/view-statistics.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView accessibleRole="BUTTON" fitHeight="39.0" fitWidth="39.0" layoutX="577.0" layoutY="327.0" onMouseClicked="#trashClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/Icon.PlainSeries.Trashcan.Pressed.48x48.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="saveButton" accessibleRole="BUTTON" fitHeight="39.0" fitWidth="39.0" layoutX="632.0" layoutY="327.0" onMouseClicked="#saveClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/document-save.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label layoutX="51.0" layoutY="70.0" text="Liste des produits">
+         <font>
+            <Font name="Britannic Bold" size="13.0" />
+         </font>
+      </Label>
+      <ButtonBar layoutX="19.0" layoutY="17.0" prefHeight="40.0" prefWidth="168.0">
+        <buttons>
+            <Button mnemonicParsing="false" onMouseClicked="#homeClicked" text="Home" />
+          <Button mnemonicParsing="false" onMouseClicked="#helpClicked" text="Help" />
+        </buttons>
+      </ButtonBar>
+      <LineChart layoutX="330.0" layoutY="383.0" prefHeight="173.0" prefWidth="399.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+   </children>
+</AnchorPane>

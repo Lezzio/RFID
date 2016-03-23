@@ -9,15 +9,25 @@ import java.io.PrintStream;
 import fr.pag.rfid.RFID;
 
 public class Customer {
+
+	private String name;
 	
 	private InputStream inStream;
 	private OutputStream outStream;
 	private int distanceIndicator;
 	
-	public Customer(InputStream inStream, OutputStream outStream, int distanceIndicator) {
+	public Customer(String name, InputStream inStream, OutputStream outStream, int distanceIndicator) {
 		this.inStream = inStream;
 		this.outStream = outStream;
 		this.distanceIndicator = distanceIndicator;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public boolean writeString(String jsonMsg) {

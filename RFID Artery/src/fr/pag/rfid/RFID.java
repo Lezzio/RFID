@@ -18,6 +18,8 @@ import fr.pag.rfid.handler.actions.ActionRelay;
 import fr.pag.rfid.handler.actions.ActionRole;
 import fr.pag.rfid.interact.Platform;
 import fr.pag.rfid.socket.SocketManager;
+import fr.pag.rfid.utils.Debugger;
+import fr.pag.rfid.utils.Protocol;
 
 public class RFID {
 	
@@ -25,7 +27,7 @@ public class RFID {
 	public static final List<String> PORTS = Arrays.asList("COM3", "COM6");
 	
 	public static PrintWriter printWriter;
-	public static Platform platform = new Platform();
+	public static Platform PLATFORM = new Platform();
 	
 	//Hexagonal stuff
 	public static IDatabase sqlDatabase = new SQLAdapter();
@@ -39,7 +41,7 @@ public class RFID {
 
 		//Socket
 		Debugger.log("Looking for receivers...");
-		//SocketManager.findReceivers(SocketManager.getLocalAddress().getHostAddress(), Protocol.PORT_HEART, 40);
+		SocketManager.findReceivers(SocketManager.getLocalAddress().getHostAddress(), Protocol.PORT_HEART, 40);
 		if(SocketManager.getReceivers().isEmpty()) {
 			Debugger.log("WARNING: Socket not found!");
 		}
@@ -61,6 +63,25 @@ public class RFID {
 			board.execute(ActionRole.class, Protocol.ASK_ROLE);
 			
 		}
+		//Simulation
+		/*
+		ActionReader actionReader = new ActionReader("#");
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					actionReader.handle(null, "A4G9#A7G9V9#A1G6");
+					Thread.sleep(2800);
+					actionReader.handle(null, "4NS98Q#PYU483");
+					Thread.sleep(2800);
+					actionReader.handle(null, "96H4");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		*/
 	}
 	
 	public static List<Board> searchBoards(int amount) {

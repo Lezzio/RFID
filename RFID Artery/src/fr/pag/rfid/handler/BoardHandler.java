@@ -7,9 +7,9 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import com.fazecast.jSerialComm.SerialPortPacketListener;
 
-import fr.pag.rfid.Debugger;
 import fr.pag.rfid.async.ThreadPool;
 import fr.pag.rfid.board.Board;
+import fr.pag.rfid.utils.Debugger;
 
 public class BoardHandler implements Runnable {
 

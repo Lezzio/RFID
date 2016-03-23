@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import fr.pag.rfid.Debugger;
 import fr.pag.rfid.board.Board;
 import fr.pag.rfid.board.BoardRole;
 import fr.pag.rfid.handler.BoardAction;
+import fr.pag.rfid.utils.Debugger;
 
 /*
  * BoardAction which is used to assign role

@@ -7,6 +7,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import fr.pag.rfid.RFID;
 import fr.pag.rfid.handler.BoardAction;
 import fr.pag.rfid.handler.BoardHandler;
+import fr.pag.rfid.utils.Validate;
 
 public class BoardBuilder {
 
@@ -23,7 +24,7 @@ public class BoardBuilder {
 	 */
 	public BoardBuilder setSerialPort(SerialPort port) {
 
-		if (port != null) {
+		if (Validate.notNull(port)) {
 			this.serialPort = port;
 		}
 		

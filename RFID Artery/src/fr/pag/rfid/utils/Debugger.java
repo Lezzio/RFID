@@ -1,4 +1,6 @@
-package fr.pag.rfid;
+package fr.pag.rfid.utils;
+
+import fr.pag.rfid.RFID;
 
 public class Debugger {
 	

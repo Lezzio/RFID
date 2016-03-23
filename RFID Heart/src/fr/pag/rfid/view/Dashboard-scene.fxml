@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane prefHeight="575.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.pag.rfid.controller.DashController">
+   <children>
+      <TitledPane animated="false" layoutY="193.0" prefHeight="382.0" prefWidth="703.0" text="Notifications">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="514.0">
+               <children>
+                  <TextFlow fx:id="notifications" layoutX="6.0" layoutY="5.0" lineSpacing="2.0" prefHeight="347.0" prefWidth="692.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <ImageView fitHeight="81.0" fitWidth="96.0" layoutX="147.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/pag-logo.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="81.0" fitWidth="96.0" layoutX="304.0" layoutY="55.0" onMouseClicked="#fileEditorClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/pag-item.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="81.0" fitWidth="96.0" layoutX="465.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Desktop/PAG%20Manager/assets//img/system-help.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+</AnchorPane>
