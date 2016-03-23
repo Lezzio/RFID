@@ -1,4 +1,4 @@
-package fr.pag.rfid;
+package fr.pag.rfid.utils;
 
 public class Protocol {
 	
@@ -11,6 +11,7 @@ public class Protocol {
 	//Controller
 	public static final byte GATE_OPEN = 0;
 	public static final byte GATE_CLOSE = 1;
+	public static final byte GATE_STOP = 9;
 	public static final byte GATE_ROTATE_ON = 4;
 	public static final byte GATE_ROTATE_OFF = 5;
 	//Phone
