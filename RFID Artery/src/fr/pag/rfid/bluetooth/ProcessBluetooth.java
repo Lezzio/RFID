@@ -14,12 +14,13 @@ import java.sql.Connection;
 import javax.bluetooth.RemoteDevice;
 import javax.microedition.io.StreamConnection;
 
-import fr.pag.rfid.Debugger;
-import fr.pag.rfid.Protocol;
 import fr.pag.rfid.RFID;
 import fr.pag.rfid.cypher.Encrypter;
 import fr.pag.rfid.database.SQLAdapter;
 import fr.pag.rfid.interact.Customer;
+import fr.pag.rfid.utils.Debugger;
+import fr.pag.rfid.utils.Protocol;
+import fr.pag.rfid.utils.Validate;
 
 public class ProcessBluetooth extends Thread {
 
@@ -56,7 +57,7 @@ public class ProcessBluetooth extends Thread {
 
 			Customer customer = getCustomer(reply, inStream, outStream);
 
-			if (customer != null) {
+			if (Validate.notNull(customer)) {
 				BluetoothManager.setCustomer(customer);
 				Debugger.log("Connexion valide");
 				
@@ -82,7 +83,7 @@ public class ProcessBluetooth extends Thread {
 						
 					} else if(request == Protocol.TRANSACTION_DONE) {
 						try {
-							RFID.platform.openCloseGate();
+							RFID.PLATFORM.openCloseGate();
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -133,7 +134,7 @@ public class ProcessBluetooth extends Thread {
 		String user = splittedReply[1];
 		String password = splittedReply[2];
 
-		Customer customer = new Customer(inStream, outStream, rssi);
+		Customer customer = new Customer(user, inStream, outStream, rssi);
 
 		// Weaker signal ? -> User further ?
 		Debugger.log("RSSI " + rssi);

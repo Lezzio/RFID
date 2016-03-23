@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-
 public class SocketManager {
 	
 	private static ArrayList<Socket> issuers = new ArrayList<Socket>();
@@ -24,12 +21,6 @@ public class SocketManager {
 		try {
 			server.start();
 		} catch (IOException e) {
-
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Server hosting");
-			alert.setContentText("Server Socket could not be established in this environment, please contact your administrator");
-			alert.show();
-
 			e.printStackTrace();
 		}
 	}

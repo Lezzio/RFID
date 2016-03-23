@@ -16,11 +16,12 @@ import javax.microedition.io.StreamConnection;
 import com.pag.objects.Basket;
 import com.pag.objects.Item;
 
-import fr.pag.rfid.Debugger;
 import fr.pag.rfid.RFID;
 import fr.pag.rfid.async.ThreadPool;
 import fr.pag.rfid.interact.Customer;
 import fr.pag.rfid.interact.Platform;
+import fr.pag.rfid.utils.Debugger;
+import fr.pag.rfid.utils.Validate;
 
 public class BluetoothManager {
 
@@ -58,15 +59,6 @@ public class BluetoothManager {
 	public static void setCustomer(Customer customer) {
 		Debugger.log("Client set to " + customer);
 		BluetoothManager.customer = customer;
-		
-		//Test object
-		if(customer != null) {
-		ArrayList<Item> items = new ArrayList<Item>();
-		items.add(new Item("Coca", "GA48H", 2.49));
-		items.add(new Item("Chips", "BA4A9", 3.49));
-		BluetoothManager.getCustomer().writeObject(new Basket(items, "Annonay pag", "User", new Date(), 4.49));
-		}
-		
 	}
 	
 	public static Customer getCustomer() {
@@ -74,7 +66,7 @@ public class BluetoothManager {
 	}
 
 	public static boolean hasCustomer() {
-		return customer != null;
+		return Validate.notNull(customer);
 	}
 
 	public static void main(String... args) {

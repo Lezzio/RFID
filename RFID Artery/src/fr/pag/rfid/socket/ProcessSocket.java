@@ -7,10 +7,10 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import fr.pag.rfid.Debugger;
-import fr.pag.rfid.Protocol;
 import fr.pag.rfid.RFID;
 import fr.pag.rfid.cypher.Encrypter;
+import fr.pag.rfid.utils.Debugger;
+import fr.pag.rfid.utils.Protocol;
 
 public class ProcessSocket extends Thread {
 
@@ -46,7 +46,6 @@ public class ProcessSocket extends Thread {
 				Debugger.log("Receiver found : " + socket.getInetAddress());
 				SocketManager.addReceiver(socket);
 			}
-			socket.close();
 
 		} catch (IOException e) {
 			e.printStackTrace(RFID.printWriter);

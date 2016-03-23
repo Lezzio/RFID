@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import fr.pag.rfid.Protocol;
+import fr.pag.rfid.utils.Protocol;
 
 public class Server {
 

@@ -1,18 +1,21 @@
 package fr.pag.rfid.socket;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketPermission;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
-import fr.pag.rfid.Debugger;
-import fr.pag.rfid.Protocol;
+import com.pag.objects.Basket;
+
+import fr.pag.rfid.utils.Debugger;
 
 public class SocketManager {
 
@@ -63,6 +66,44 @@ public class SocketManager {
 
 	public static void setLocalAddress(InetAddress localAddress) {
 		SocketManager.localAddress = localAddress;
+	}
+
+	public static FutureTask<Basket> getBasket(final ArrayList<String> itemQueue) {
+
+		FutureTask<Basket> futureTask = new FutureTask<>(new Callable<Basket>() {
+
+			@Override
+			public Basket call() throws Exception {
+				for (Socket socket : receivers) {
+					try {
+						BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+						BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+						// Serialize item list
+						String builder = "";
+						for(String str : itemQueue) {
+							builder += str + "#";
+						}
+						// Send item list
+						bufferedWriter.write(builder + "\n");
+						bufferedWriter.flush();
+
+						// Read incoming basket
+						String serializedBasket = bufferedReader.readLine();
+						Basket basket = Basket.fromString(serializedBasket);
+						
+						return basket;
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+				}
+
+				return new Basket();
+			}
+		});
+		futureTask.run();
+		
+		return futureTask;
 	}
 
 }

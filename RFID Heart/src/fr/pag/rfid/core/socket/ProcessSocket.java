@@ -1,22 +1,25 @@
 package fr.pag.rfid.core.socket;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import fr.pag.rfid.Protocol;
+import com.pag.objects.Basket;
+
 import fr.pag.rfid.core.cypher.Decrypter;
+import fr.pag.rfid.core.handler.BasketManager;
+import fr.pag.rfid.utils.Protocol;
 
 public class ProcessSocket extends Thread {
 
 	private Socket socket;
 	
-	private InputStream inputStream;
-	private OutputStream outputStream;
-
 	public ProcessSocket(Socket socket) {
 		this.socket = socket;
 	}
@@ -29,19 +32,36 @@ public class ProcessSocket extends Thread {
 	@Override
 	public void run() {
 		try {
-			inputStream = socket.getInputStream();
-			outputStream = socket.getOutputStream();
+			final OutputStream outStream = socket.getOutputStream();
+			final InputStream inStream = socket.getInputStream();
+
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inStream));
+			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outStream));
 			
 			//Unwanted connection ?
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 			String recievedCode = Decrypter.decrypt(bufferedReader.readLine());
 			
-		 	if(recievedCode.equals(Protocol.ACCESS_HEART)) {
+		 	if(recievedCode != null && recievedCode.equals(Protocol.ACCESS_HEART)) {
 		 		//Allow connection
-		 		outputStream.write(1);
-		 		outputStream.flush();
+		 		outStream.write(1);
+		 		outStream.flush();
 		 		System.out.println("Issuer found : " + socket.getInetAddress());
 		 		SocketManager.addIssuer(socket);
+		 		
+		 		//Wait for request
+		 		while(true) {
+		 			String str = bufferedReader.readLine();
+		 			if(str != null) {
+		 				String[] codes = str.split("#");
+		 				Basket basket = BasketManager.getBasket(codes);
+		 				String serializedBasked = basket.toString();
+		 				bufferedWriter.write(serializedBasked + "\n");
+		 				bufferedWriter.flush();
+		 				System.out.println("Basket request treated");
+		 			}
+		 		}
+		 	} else {
+		 		socket.close();
 		 	}
 			
 		} catch (IOException e) {

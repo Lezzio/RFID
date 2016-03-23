@@ -8,7 +8,7 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 import javax.microedition.io.StreamConnectionNotifier;
 
-import fr.pag.rfid.Debugger;
+import fr.pag.rfid.utils.Debugger;
 
 public class BluetoothServer {
 
